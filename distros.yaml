@@ -1,0 +1,22 @@
+#ansible-playbook distros.yaml --extra-vars "ansible_distribution = Ubuntu"
+#ansible all -m setup -a "filter=ansible_distribution*"
+---
+- hosts: all
+  tasks:
+
+   # - name: install system updates for centos systems
+   #   yum: name=* state=latest update_cache=yes
+   #   when: ansible_distribution == "CentOS"
+
+   # - name: install system updates for ubuntu systems
+   #   apt: upgrade=dist update_cache=yes
+   #   when: ansible_distribution == "Ubuntu"
+
+    - name: install ntp for centos
+      yum: name=ntp state=installed
+      when: ansible_distribution == "CentOS"
+
+    - name: install ntp for ubuntu
+      apt: name=ntp state=installed
+      when: ansible_distribution == "Ubuntu"
+
