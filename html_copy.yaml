@@ -1,0 +1,16 @@
+#chose host to be centos or ubuntu
+#Go to the IP on browser to check <ip>/index.html
+- hosts: centos
+  tasks:
+    
+    #- name: install web server
+    #  apt: pkg=apache2 state=present
+    #- name: install index page
+    #  copy: src=front.html dest=/var/www/html/index.html backup=yes
+
+
+    - name: install web server
+      yum: pkg=httpd state=present
+    - name: install index page
+      copy: src=front.html dest=/var/www/html/index.html backup=yes
+
