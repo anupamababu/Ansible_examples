@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False #This module is automatically called by playbooks to gather useful variables about remote hosts that can be used in playbooks.
+  tasks:
+    - debug: msg="call handler" #prints statements during execution
+      changed_when: True
+      notify: do something
+
+  handlers:
+    - name: do something
+      debug: msg="I'm doing something"
+      when: foo|default(False)|bool
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - set_fact: #This module allows setting new variables
+        foo: True #THis can be 0 or 1
+
+    - debug: msg="call handler"
+      changed_when: True
+      notify: do something
+
+  handlers:
+    - name: do something
+      debug: msg="I'm doing something"
+      when: foo|default(False)|bool
+
