@@ -1,0 +1,23 @@
+#This file throws error if the parameter rc return is not 0
+---
+#- hosts: 127.0.0.1
+- hosts: all
+  tasks:
+    - name: Run command
+      shell: docker images
+      register: result
+      failed_when: false
+    - debug: msg={{ result }}
+
+    - debug:
+        msg:
+         - "Something wrong, probably it is problems with authentication."
+         - "Error:"
+         #- "{{result.stderr}}"
+         - "Your auth parameters:"
+         #- "{{creds_env_reg.stdout_lines}}"
+      when: result.rc != 0
+
+    - fail:
+        msg: "Please read message in previous step"
+      when: result.rc != 0
