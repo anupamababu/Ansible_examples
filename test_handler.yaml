@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: Install httpd
+      yum: pkg=httpd state=installed
+      notify:
+        - Start httpd
+  handlers:
+    - name: Start httpd
+      service: name=httpd state=started
