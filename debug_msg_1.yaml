@@ -1,0 +1,11 @@
+- hosts: all
+  gather_facts: False #This module is automatically called by playbooks to gather useful variables about remote hosts that can be used in playbooks.
+  tasks:
+    - debug: msg="call handler" #prints statements during execution
+      changed_when: True
+      notify: do something
+
+  handlers:
+    - name: do something
+      debug: msg="I'm doing something"
+      when: foo|default(False)|bool
