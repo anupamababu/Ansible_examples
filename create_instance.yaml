@@ -1,0 +1,13 @@
+---
+- hosts: aws
+  connection: local
+  gather_facts: false
+  #vars_files: { ./env.yml }
+  tasks:
+  - name: Provision a set of instances
+    ec2:
+        instance_type: t2.micro
+        image: ami-e60e5a89
+        vpc_subnet_id: subnet-61c00609
+        wait: true
+    register: ec2
