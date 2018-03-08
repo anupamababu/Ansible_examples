@@ -1,0 +1,15 @@
+# demo_setup.yml
+
+- name: Provision a set of instances
+  hosts: localhost
+  # ... AS ABOVE ...
+
+- hosts: aws
+  name: configuration play
+  become: true
+  gather_facts: false
+
+  tasks:
+
+     - name: Check NTP service
+       yum: pkg=ntp state=installed
