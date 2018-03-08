@@ -1,0 +1,11 @@
+- name: terminate single instance
+  hosts: aws
+  user: ec2-user
+  tasks:
+    - action: ec2_facts
+    - name: terminating single instance
+      local_action:
+        module: ec2
+        state: 'stopped'
+        region: ap-south-1
+        instance_ids: "{{ ansible_ec2_instance_id }}"
